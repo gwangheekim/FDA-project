@@ -67,7 +67,7 @@ diagnostic.spfda <- function(object, which = "beta", bidx = 1){
     acf.val = ACF
     acf.print = setNames(drop(ACF$acf), format(drop(ACF$lag), digits = 3L))
     par(mfrow = c(1,3))
-    ts.plot(object$s2_vec, ylab="Lambda", main = "Trace Plot")
+    ts.plot(object$s2_vec, ylab="Sigma2", main = "Trace Plot")
     plot(acf.val, main = "")
     title("ACF", line = 1.6)
     plot(density(object$s2_vec), main = paste0("Density"))
