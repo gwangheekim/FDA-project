@@ -43,11 +43,11 @@ spfda <- function(y, ...) {
 #'lamb = 0.7
 #'K = 30
 #'
-#'Y1_err = X %*% beta1*0.03 + solve(diag(n) - lamb*W)%*%rnorm(n, 0, 3)
-#'Y2_err = X %*% beta2*0.03 + solve(diag(n) - lamb*W)%*%rnorm(n, 0, 3)
+#'Y1_err = X %*% beta1*0.01 + solve(diag(n) - lamb*W)%*%rnorm(n, 0, 3)
+#'Y2_err = X %*% beta2*0.01 + solve(diag(n) - lamb*W)%*%rnorm(n, 0, 3)
 #'
-#'Y1_lag = solve(diag(n) - lamb*W)%*%(X %*% beta1) + rnorm(n, 0, 3)
-#'Y2_lag = solve(diag(n) - lamb*W)%*%(X %*% beta2) + rnorm(n, 0, 3)
+#'Y1_lag = solve(diag(n) - lamb*W)%*%(X %*% beta1)*0.01 + rnorm(n, 0, 3)
+#'Y2_lag = solve(diag(n) - lamb*W)%*%(X %*% beta2)*0.01 + rnorm(n, 0, 3)
 #'
 #'res_err1 = spfreg(y = Y1_err,X = X,W = W,K = K,
 #'                  jump_lamb = 0.1,pr_b_sd = 3^2,
