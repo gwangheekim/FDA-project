@@ -5,7 +5,7 @@ spatial_mcmc <- function(y, X, W, K, jump_lamb, pr_b_sd, niter, nburn, nthin, ty
   if (sc) {
     X <- apply(X, 2, scale)
   }
-
+  N <- length(y)
   X1_F <- Data2fd(time_v, t(X), my_basis)
   Z <- t(coef(X1_F))
   a <- b <- 1e-03
