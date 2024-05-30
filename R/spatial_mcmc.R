@@ -49,7 +49,7 @@ spatial_mcmc <- function(y, X, W, K, jump_lamb, pr_b_sd, niter, nburn, nthin, ty
       s2_o = rinvgamma(1,param1,param2)
       while(T){
         lamb_n = lamb_o + rnorm(1,0,jump_lamb)
-        if((lamb_n <= 1)&(lamb_n >= 0)){
+        if((lamb_n <= 1)&(lamb_n >= -1)){
           break
         }
       }
@@ -69,7 +69,7 @@ spatial_mcmc <- function(y, X, W, K, jump_lamb, pr_b_sd, niter, nburn, nthin, ty
       beta_mat[i,] = beta_o
       s2_vec[i] = s2_o
       lamb_vec[i] = lamb_o
-      lik_vec[i] = c(-(N/2)*log(2*pi) - (N/2)*log(s2_o) - (1/(2*s2_o))*t(B%*%y - Z%*%beta_o)%*%(B%*%y - Z%*%beta_o) + log(abs(det(B)))) + dmvnorm(beta_o, mK, SigK, log=T) + log(dinvgamma(s2_o,a,b))
+      lik_vec[i] = c(-(N/2)*log(2*pi) - (N/2)*log(s2_o) - (1/(2*s2_o))*t(B%*%y - Z%*%beta_o)%*%(B%*%y - Z%*%beta_o) + log(abs(det(B)))) + dmvnorm(beta_o, mK, SigK, log=T) + log(dinvgamma(s2_o,a,b)) + log(0.5)
     }
 
     inds = seq(nburn,niter,nthin)
@@ -77,7 +77,7 @@ spatial_mcmc <- function(y, X, W, K, jump_lamb, pr_b_sd, niter, nburn, nthin, ty
     s2_est = mean(s2_vec[inds])
     beta_est = colMeans(beta_mat[inds,])
     Best = diag(N) - lamb_est*W
-    lik = c(-(N/2)*log(2*pi) - (N/2)*log(s2_est) - (1/(2*s2_est))*t(Best%*%y - Z%*%beta_est)%*%(Best%*%y - Z%*%beta_est) + log(abs(det(Best)))) + dmvnorm(beta_est, mK, SigK, log=T) + log(dinvgamma(s2_est,a,b))
+    lik = c(-(N/2)*log(2*pi) - (N/2)*log(s2_est) - (1/(2*s2_est))*t(Best%*%y - Z%*%beta_est)%*%(Best%*%y - Z%*%beta_est) + log(abs(det(Best)))) + dmvnorm(beta_est, mK, SigK, log=T) + log(dinvgamma(s2_est,a,b)) + log(0.5)
     bic_res = -2*lik + (K+2)*log(N)
     aic_res = -2*lik + 2*(K+2)
 
@@ -97,7 +97,7 @@ spatial_mcmc <- function(y, X, W, K, jump_lamb, pr_b_sd, niter, nburn, nthin, ty
       s2_o = rinvgamma(1,param1,param2)
       while(T){
         lamb_n = lamb_o + rnorm(1,0,jump_lamb)
-        if((lamb_n <= 1)&(lamb_n >= 0)){
+        if((lamb_n <= 1)&(lamb_n >= -1)){
           break
         }
       }
@@ -117,7 +117,7 @@ spatial_mcmc <- function(y, X, W, K, jump_lamb, pr_b_sd, niter, nburn, nthin, ty
       beta_mat[i,] = beta_o
       s2_vec[i] = s2_o
       lamb_vec[i] = lamb_o
-      lik_vec[i] = c(-(N/2)*log(2*pi) - (N/2)*log(s2_o) - (1/(2*s2_o))*t(y - A%*%beta_o)%*%t(B)%*%B%*%(y-A%*%beta_o) + log(abs(det(B)))) + dmvnorm(beta_o, mK, SigK, log=T) + log(dinvgamma(s2_o,a,b))
+      lik_vec[i] = c(-(N/2)*log(2*pi) - (N/2)*log(s2_o) - (1/(2*s2_o))*t(y - A%*%beta_o)%*%t(B)%*%B%*%(y-A%*%beta_o) + log(abs(det(B)))) + dmvnorm(beta_o, mK, SigK, log=T) + log(dinvgamma(s2_o,a,b)) + log(0.5)
     }
 
     inds = seq(nburn,niter,nthin)
@@ -125,7 +125,7 @@ spatial_mcmc <- function(y, X, W, K, jump_lamb, pr_b_sd, niter, nburn, nthin, ty
     s2_est = mean(s2_vec[inds])
     beta_est = colMeans(beta_mat[inds,])
     Best = diag(N) - lamb_est*W
-    lik = c(-(N/2)*log(2*pi) - (N/2)*log(s2_est) - (1/(2*s2_est))*t(y - A%*%beta_est)%*%t(Best)%*%Best%*%(y-A%*%beta_est) + log(abs(det(Best)))) + dmvnorm(beta_est, mK, SigK, log=T) + log(dinvgamma(s2_est,a,b))
+    lik = c(-(N/2)*log(2*pi) - (N/2)*log(s2_est) - (1/(2*s2_est))*t(y - A%*%beta_est)%*%t(Best)%*%Best%*%(y-A%*%beta_est) + log(abs(det(Best)))) + dmvnorm(beta_est, mK, SigK, log=T) + log(dinvgamma(s2_est,a,b)) + log(0.5)
     bic_res = -2*lik + (K+2)*log(N)
     aic_res = -2*lik + 2*(K+2)
   }
