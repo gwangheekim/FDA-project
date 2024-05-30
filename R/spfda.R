@@ -60,7 +60,7 @@ spfda <- function(y, ...) {
 #' }
 #'
 #' @export
-spfreg <- function(y, type = "lag", sc = FALSE, ...){
+spfreg <- function(y, ...){
   output <- spatial_mcmc(..., y)
   class(output) = "spfda"
   return(output)
