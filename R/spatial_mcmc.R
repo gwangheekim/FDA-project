@@ -19,6 +19,7 @@ spatial_mcmc <- function(y, X, W, K, jump_lamb, pr_b_sd, niter, nburn, nthin, ty
   beta_o <- rep(1, K)
   s2_o <- 1
   lamb_o <- 0.5
+  mK <- rep(0,K)
 
   pb <- progress_bar$new(
     format = " Progress: [:bar] :percent, Estimated completion time: :eta",
