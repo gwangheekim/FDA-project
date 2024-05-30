@@ -133,7 +133,7 @@ spatial_mcmc <- function(y, X, W, K, jump_lamb, pr_b_sd, niter, nburn, nthin, ty
     lamb_est = lamb_est,
     accept_lamb = accept_lamb,
     grid = time_v,
-    A = A,
+    A = Z,
     my_basis = my_basis,
     lik = lik,
     aic = aic_res,
