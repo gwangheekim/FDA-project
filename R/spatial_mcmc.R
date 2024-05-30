@@ -31,7 +31,7 @@ spatial_mcmc <- function(y, X, W, K, jump_lamb, pr_b_sd, niter, nburn, nthin, ty
     for(i in 1:niter){
       pb$tick()
       B = diag(N) - lamb_o*W
-      SigK = beta_s2 * diag(K)
+      SigK = pr_b_sd * diag(K)
       mean_b = solve(t(Z)%*%Z + s2_o*solve(SigK))%*%(t(Z)%*%B%*%y + s2_o*solve(SigK)%*%mK)
       Sigma_b = solve(t(Z)%*%Z + s2_o*solve(SigK))
 
@@ -78,7 +78,7 @@ spatial_mcmc <- function(y, X, W, K, jump_lamb, pr_b_sd, niter, nburn, nthin, ty
     for(i in 1:niter){
       pb$tick()
       B = diag(N) - lamb_o*W
-      SigK = beta_s2 * diag(K)
+      SigK = pr_b_sd * diag(K)
       mean_b = solve(t(Z)%*%t(B)%*%B%*%Z + s2_o*solve(SigK)) %*% (t(Z)%*%t(B)%*%B%*%y + s2_o*solve(SigK)%*%mK)
       Sigma_b = s2_o*solve(t(Z)%*%t(B)%*%B%*%Z + s2_o*diag(K))
 
