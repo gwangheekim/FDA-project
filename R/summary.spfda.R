@@ -1,6 +1,6 @@
-#' Summary the result of LSIRM model
+#' Summary the result of spatial scalar on function regression.
 #'
-#' @description \link{summary} is used to summary the result of Spatial scalar on functional regression.
+#' @description \link{summary.spfda} is used to summary the result of Spatial scalar on function regression.
 #' @export
 summary.spfda <- function(object, CI = 0.95){
   est = object$beta_est

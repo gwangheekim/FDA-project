@@ -4,8 +4,8 @@ spfda <- function(y, ...) {
 }
 
 #' Spatial MCMC for SPFDA
+#' @description \link{spfreg} is a function to perform spatial MCMC for spatial functional data analysis.
 #'
-#' A function to perform spatial MCMC for spatial functional data analysis.
 #' @param y A numeric vector of observations.
 #' @param X A numeric matrix of predictors.
 #' @param W A spatial weights matrix.
@@ -16,6 +16,7 @@ spfda <- function(y, ...) {
 #' @param nburn Number of burn-in iterations.
 #' @param nthin Thinning interval for MCMC.
 #' @param type Type of model ("lag" or "error").
+#' @param basis basis function("bs" of "fb"). Default is "bs" which means b-spline basis. "fs" means fourier basis.
 #' @param sc Logical indicating if the predictors should be scaled.
 #' @return A list containing MCMC samples and estimates.
 #' @examples
@@ -52,7 +53,7 @@ spfda <- function(y, ...) {
 #'res_err1 = spfreg(y = Y1_err,X = X,W = W,K = K,
 #'                  jump_lamb = 0.1,pr_b_sd = 3^2,
 #'                  niter = 15000, nburn = 2500, nthin = 10,
-#'                  type = "error", sc = F)
+#'                  type = "error", basis = "bs", sc = F)
 #'summary(res_err1)
 #'diagnostic(res_err1, which = "beta", bidx = 3)
 #'plot(res_err1, q = 0.1)

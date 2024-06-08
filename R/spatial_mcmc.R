@@ -1,11 +1,17 @@
 spatial_mcmc <- function(y, X, W, K, jump_lamb, pr_b_sd,
-                         niter, nburn, nthin, type = "lag", sc = FALSE) {
+                         niter, nburn, nthin, type = "lag", basis = "bs", sc = FALSE){
+
   time_v <- seq(0, 1, length.out = ncol(X))
-  my_basis <- create.bspline.basis(c(0, 1), nbasis = K)
+  if(basis == "bs"){
+    my_basis <- create.bspline.basis(c(0, 1), nbasis = K)
+  }else if(basis == "fb"){
+    my_basis <- create.fourier.basis(c(0, 1), nbasis = K)
+  }
 
   if (sc) {
     X <- apply(X, 2, scale)
   }
+
   N <- length(y)
   X1_F <- Data2fd(time_v, t(X), my_basis)
   A <- t(coef(X1_F))
@@ -148,6 +154,7 @@ spatial_mcmc <- function(y, X, W, K, jump_lamb, pr_b_sd,
     bic = bic_res,
     mcmc_opt = list(niter=niter,
                     nburn=nburn,
-                    nthin=nthin)
+                    nthin=nthin,
+                    nsamp=length(inds))
   ))
 }
